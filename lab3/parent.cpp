@@ -12,9 +12,9 @@
 
 using namespace std;
 
-#define RED_COLOR "\x1b[31m"   // child process output color
-#define GREEN_COLOR "\x1b[32m" // parent process output color
-#define RESET_COLOR "\x1b[0m"  // reset color
+#define RED_COLOR "\x1b[31m"
+#define GREEN_COLOR "\x1b[32m"
+#define RESET_COLOR "\x1b[0m"
 
 #define MAX_PATH_SIZE 64
 
@@ -80,22 +80,21 @@ int main()
     pid_t pid = create_process();
 
     if (pid == 0)
-    { // Child process (writable) fd(1)
-
+    {
         if (dup2(input_file, STDIN_FILENO) == -1)
-        { // set txt-file as stdin
+        {
             perror("dup2 can't redirect stdin to input_file");
             exit(-1);
         }
 
         if (execl("./child", "./child", sem2.c_str(), sem1.c_str(), shared_file.c_str(), NULL) == -1)
-        { // exec child process
+        {
             perror("can't exec child process");
             exit(-1);
         }
     }
     else
-    { // Parent process (readable) fd(0)
+    {
 
         close(input_file);
 
