@@ -18,11 +18,7 @@ using namespace std;
 
 bool IsPrime(int x)
 {
-    if (x < 0)
-    {
-        return true;
-    }
-    else if (x == 0 or x == 1)
+    if (x <= 1)
     {
         return false;
     }
